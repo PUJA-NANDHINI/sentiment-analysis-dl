@@ -14,7 +14,7 @@ with open("tokenizer.pkl", "rb") as f:
 
 @app.route("/")
 def home():
-    return "Sentiment Analysis API Running!"
+    return render_template("index.html")
 
 @app.route("/predict_web", methods=["POST"])
 def predict_web():
