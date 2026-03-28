@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 import tensorflow as tf
 import pickle
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def predict_web():
     seq = tokenizer.texts_to_sequences([text])
     padded = pad_sequences(seq, maxlen=100)
 
-    pred = model.predict(padded)[0][0]
+    pred = model.predict(padded, verbose=0)[0][0]
 
     if pred > 0.7:
         sentiment = "Positive 😊"
