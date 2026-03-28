@@ -8,7 +8,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 app = Flask(__name__)
 
 # Load model
-model = tf.keras.models.load_model("model.h5")
+model = tf.keras.models.load_model("model.keras")
 
 # Load tokenizer
 with open("tokenizer.pkl", "rb") as f:
