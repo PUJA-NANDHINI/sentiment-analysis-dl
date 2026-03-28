@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import tensorflow as tf
 import pickle
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -16,10 +16,9 @@ with open("tokenizer.pkl", "rb") as f:
 def home():
     return "Sentiment Analysis API Running!"
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.get_json()
-    text = data["text"]
+@app.route("/predict_web", methods=["POST"])
+def predict_web():
+    text = request.form["text"]
 
     seq = tokenizer.texts_to_sequences([text])
     padded = pad_sequences(seq, maxlen=100)
@@ -33,7 +32,7 @@ def predict():
     else:
         sentiment = "Neutral 😐"
 
-    return jsonify({"sentiment": sentiment})
+    return render_template("index.html", result=sentiment)
 
 import os
 
